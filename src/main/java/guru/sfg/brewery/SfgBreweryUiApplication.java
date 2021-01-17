@@ -26,6 +26,5 @@ public class SfgBreweryUiApplication {
         SpringApplication.run(SfgBreweryUiApplication.class, args);
     }
 
-    //test
 }
 
