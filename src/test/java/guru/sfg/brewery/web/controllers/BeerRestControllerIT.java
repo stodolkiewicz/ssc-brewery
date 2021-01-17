@@ -17,8 +17,14 @@ public class BeerRestControllerIT extends BaseIT {
     }
 
     @Test
-    void findBeersWithHttpBasic() throws Exception {
-        mockMvc.perform(get("/api/v1/beer").with(httpBasic("spring", "guru")))
+    void findBeersById() throws Exception {
+        mockMvc.perform(get("/api/v1/beer/f4a3973d-3e11-4fbd-8446-28cb94a190dd"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void findBeersByUpc() throws Exception {
+        mockMvc.perform(get("/api/v1/beerUpc/0631234200036"))
                 .andExpect(status().isOk());
     }
 
