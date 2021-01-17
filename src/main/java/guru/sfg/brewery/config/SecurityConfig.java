@@ -13,6 +13,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/", "/webjars/**", "/login", "/resources/**").permitAll()
+                .antMatchers("/beers/find", "/beers").permitAll()
                 .and()
                 .authorizeRequests()
                 .anyRequest().authenticated()
