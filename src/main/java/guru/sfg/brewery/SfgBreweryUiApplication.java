@@ -26,5 +26,8 @@ public class SfgBreweryUiApplication {
         SpringApplication.run(SfgBreweryUiApplication.class, args);
     }
 
+    // todo
+    // why http.headers().frameOptions().disable(); h2-console needs this?
+
 }
 

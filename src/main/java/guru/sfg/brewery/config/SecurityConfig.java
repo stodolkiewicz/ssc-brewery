@@ -16,6 +16,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/", "/webjars/**", "/login", "/resources/**", "/h2-console/**").permitAll()
                 .antMatchers("/beers/find", "/beers").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/v1/beer/**").permitAll()
+                .mvcMatchers(HttpMethod.GET, "/api/v1/beerUpc/{upc}").permitAll()
+                .and()
+                .csrf().ignoringAntMatchers("/h2-console/**")
                 .and()
                 .authorizeRequests()
                 .anyRequest().authenticated()
@@ -23,6 +26,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .and()
                 .httpBasic();
+
+        // disable frame options
+        http.headers().frameOptions().disable();
     }
 
 }
