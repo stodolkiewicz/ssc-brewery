@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @Configuration
@@ -20,7 +21,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
+        return new StandardPasswordEncoder();
     }
 
     protected void configure(HttpSecurity http) throws Exception {
@@ -52,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .roles("ADMIN")
                 .and()
                 .withUser("user")
-                .password("password")
+                .password("2f7bbf2ce71daf2cacc53c1ef51cfeb2d1fb251f5fd2f1a0cde2805e9128990472980eb46c95ef5d")
                 .roles("USER");
 
         auth.inMemoryAuthentication()
