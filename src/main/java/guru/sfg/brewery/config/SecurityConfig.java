@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
@@ -21,7 +22,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     PasswordEncoder passwordEncoder() {
-        return new StandardPasswordEncoder();
+        return new BCryptPasswordEncoder();
     }
 
     protected void configure(HttpSecurity http) throws Exception {
@@ -53,7 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .roles("ADMIN")
                 .and()
                 .withUser("user")
-                .password("2f7bbf2ce71daf2cacc53c1ef51cfeb2d1fb251f5fd2f1a0cde2805e9128990472980eb46c95ef5d")
+                .password("$2a$10$p6kUiU8K/EdT9tqgcM5jmeOwkRCUnTOSQl430a2N72Y/NyjgX6g9y")
                 .roles("USER");
 
         auth.inMemoryAuthentication()
