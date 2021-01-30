@@ -22,7 +22,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return SfgPasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
     protected void configure(HttpSecurity http) throws Exception {
@@ -50,11 +50,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
                 .withUser("spring")
-                .password("guru")
+                .password("{bcrypt}$2a$10$1uxohHnNI5C2vbXJCtOIRuL2Pvn4Xv0NcuurNzfgvHIiae2YkmTVG")
                 .roles("ADMIN")
                 .and()
                 .withUser("user")
-                .password("$2a$10$p6kUiU8K/EdT9tqgcM5jmeOwkRCUnTOSQl430a2N72Y/NyjgX6g9y")
+                .password("{sha256}4a12a11b25407d2b4cef044e5d65b2ff7f455358fb8859ca8da1ffb489fc58097b466c87fd118cd1")
                 .roles("USER");
 
         auth.inMemoryAuthentication()
