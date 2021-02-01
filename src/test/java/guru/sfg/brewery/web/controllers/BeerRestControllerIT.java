@@ -4,11 +4,32 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest
 public class BeerRestControllerIT extends BaseIT {
+
+    @Test
+    void deleteBeerBadCreds() throws Exception {
+        mockMvc.perform(
+                delete("/api/v1/beer/cde503c2-4c95-47eb-a07b-5751bb04f779")
+                        .header("Api-Key", "spring")
+                        .header("Api-Secret", "guruXXX")
+        )
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    void deleteBeer() throws Exception {
+        mockMvc.perform(
+                    delete("/api/v1/beer/cde503c2-4c95-47eb-a07b-5751bb04f779")
+                        .header("Api-Key", "spring")
+                        .header("Api-Secret", "guru")
+                )
+                .andExpect(status().isOk());
+    }
 
     @Test
     void findBeers() throws Exception {
