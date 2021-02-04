@@ -54,22 +54,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("spring")
-                .password("{bcrypt}$2a$10$1uxohHnNI5C2vbXJCtOIRuL2Pvn4Xv0NcuurNzfgvHIiae2YkmTVG")
-                .roles("ADMIN")
-                .and()
-                .withUser("user")
-                .password("{sha256}4a12a11b25407d2b4cef044e5d65b2ff7f455358fb8859ca8da1ffb489fc58097b466c87fd118cd1")
-                .roles("USER");
-
-        auth.inMemoryAuthentication()
-                .withUser("scott")
-                .password("tiger")
-                .roles("CUSTOMER");
-    }
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.inMemoryAuthentication()
+//                .withUser("spring")
+//                .password("{bcrypt}$2a$10$1uxohHnNI5C2vbXJCtOIRuL2Pvn4Xv0NcuurNzfgvHIiae2YkmTVG")
+//                .roles("ADMIN")
+//                .and()
+//                .withUser("user")
+//                .password("{sha256}4a12a11b25407d2b4cef044e5d65b2ff7f455358fb8859ca8da1ffb489fc58097b466c87fd118cd1")
+//                .roles("USER");
+//
+//        auth.inMemoryAuthentication()
+//                .withUser("scott")
+//                .password("tiger")
+//                .roles("CUSTOMER");
+//    }
 
     //    @Override
 //    @Bean
