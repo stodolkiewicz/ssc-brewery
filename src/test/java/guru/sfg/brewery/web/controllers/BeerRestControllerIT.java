@@ -1,6 +1,10 @@
 package guru.sfg.brewery.web.controllers;
 
+import guru.sfg.brewery.domain.Beer;
+import guru.sfg.brewery.repositories.BeerRepository;
+import guru.sfg.brewery.web.model.BeerStyleEnum;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -11,6 +15,19 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 public class BeerRestControllerIT extends BaseIT {
+
+    @Autowired
+    BeerRepository beerRepository;
+
+    public Beer beerToDelete() {
+        return beerRepository.saveAndFlush(Beer.builder()
+            .beerName("Delete beer")
+            .beerStyle(BeerStyleEnum.IPA)
+            .minOnHand(12)
+            .quantityToBrew(200)
+            .build()
+        );
+    }
 
     @Test
     void listBreweriesCustomer() throws Exception {
@@ -31,7 +48,7 @@ public class BeerRestControllerIT extends BaseIT {
     @Test
     void deleteBeerBadCreds() throws Exception {
         mockMvc.perform(
-                delete("/api/v1/beer/cde503c2-4c95-47eb-a07b-5751bb04f779")
+                delete("/api/v1/beer/" + beerToDelete().getId())
                         .header("Api-Key", "spring")
                         .header("Api-Secret", "guruXXX")
         )
