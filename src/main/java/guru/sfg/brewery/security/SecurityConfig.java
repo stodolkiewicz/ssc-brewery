@@ -38,6 +38,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/api/v1/beer/**").permitAll()
                 .mvcMatchers(HttpMethod.GET, "/api/v1/beerUpc/{upc}").permitAll()
                 .mvcMatchers(HttpMethod.DELETE, "/api/v1/beer/**").hasRole("ADMIN")
+                .mvcMatchers("brewery/breweries").hasAnyRole("CUSTOMER", "ADMIN")
+                .mvcMatchers(HttpMethod.GET, "brewery/api/v1/breweries").hasAnyRole("CUSTOMER", "ADMIN")
                 .and()
                 .csrf().ignoringAntMatchers("/h2-console/**")
                 .and()

@@ -13,6 +13,22 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class BeerRestControllerIT extends BaseIT {
 
     @Test
+    void listBreweriesCustomer() throws Exception {
+        mockMvc.perform(
+                get("/brewery/breweries")
+                        .with(httpBasic("scott", "tiger")))
+                .andExpect(status().is2xxSuccessful());
+    }
+
+    @Test
+    void listBreweriesAdmin() throws Exception {
+        mockMvc.perform(
+                get("/brewery/breweries")
+                        .with(httpBasic("spring", "guru")))
+                .andExpect(status().is2xxSuccessful());
+    }
+
+    @Test
     void deleteBeerBadCreds() throws Exception {
         mockMvc.perform(
                 delete("/api/v1/beer/cde503c2-4c95-47eb-a07b-5751bb04f779")
