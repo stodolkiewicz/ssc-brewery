@@ -4,6 +4,9 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toSet;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,11 +23,21 @@ public class User {
     private String username;
 
     @Singular
-    @ManyToMany(cascade = CascadeType.MERGE)
-    @JoinTable(name ="user_authority",
-    joinColumns = {@JoinColumn(name = "user_id")},
-    inverseJoinColumns = {@JoinColumn(name = "authority_id")})
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
+    @JoinTable(name ="user_role",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id")})
+    private Set<Role> roles;
+
+    @Transient
     private Set<Authority> authorities;
+
+    public Set<Authority> getAuthorities() {
+        return this.roles.stream()
+                .map(Role::getAuthorities)
+                .flatMap(Set::stream)
+                .collect(toSet());
+    }
 
     @Builder.Default
     private Boolean accountNonExpired = true;
